@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>瑞桥鼎科 2026 质量月 · 活动统一入口</title>
+<style>
+  :root{
+    --brand:#c8102e;      /* 质在执行 主色 */
+    --brand-dark:#9c0c23;
+    --ink:#1f2329;
+    --muted:#6b7280;
+    --bg:#f5f6f8;
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{
+    margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:linear-gradient(180deg,#fff 0%,var(--bg) 100%);
+    color:var(--ink);min-height:100vh;
+  }
+  .wrap{max-width:520px;margin:0 auto;padding:24px 18px 40px;}
+  .hero{
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+    color:#fff;border-radius:18px;padding:26px 22px;box-shadow:0 8px 24px rgba(200,16,46,.25);
+  }
+  .hero .tag{font-size:13px;opacity:.9;letter-spacing:2px;}
+  .hero h1{margin:8px 0 6px;font-size:23px;line-height:1.35;font-weight:800;}
+  .hero p{margin:0;font-size:14px;opacity:.92;}
+  .sub{margin:18px 4px 12px;font-size:14px;color:var(--muted);}
+  .card{
+    display:flex;align-items:center;gap:14px;background:var(--card);
+    border:1px solid #eceef1;border-radius:16px;padding:18px 16px;margin-bottom:14px;
+    text-decoration:none;color:var(--ink);box-shadow:0 2px 10px rgba(0,0,0,.04);
+    transition:transform .12s ease,box-shadow .12s ease;
+  }
+  .card:active{transform:scale(.98);box-shadow:0 4px 16px rgba(0,0,0,.10);}
+  .ic{
+    flex:0 0 52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    font-size:26px;background:#fdeef0;
+  }
+  .card .t{font-size:16px;font-weight:700;margin-bottom:3px;}
+  .card .d{font-size:13px;color:var(--muted);line-height:1.45;}
+  .card .arrow{margin-left:auto;color:#cbd0d6;font-size:20px;}
+  .note{
+    margin-top:22px;font-size:12px;color:#9aa1a9;text-align:center;line-height:1.7;
+  }
+  .note b{color:var(--brand);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="tag">RUIQIAO DINGKE · 2026</div>
+      <h1>质量月活动统一入口</h1>
+      <p>知行合一，质在执行 —— 扫码即办，一步到位</p>
+    </div>
+
+    <div class="sub">请选择你要参与的事项：</div>
+
+    <!--
+      ===== 三个入口链接配置区 =====
+      把下面的 href 替换成你们实际使用的表单链接即可：
+        · 报名表单：腾讯问卷 / 问卷网 / 企业微信 收集的"活动报名"链接
+        · SOP建议：第6-7页《全员诊查与精益改善提报与闭环跟踪表》的提交链接
+        · 反馈表单：腾讯问卷 / 问卷网 的"活动反馈"链接
+      只需改 href，页面其余部分无需变动。
+    -->
+    <a class="card" href="https://your-domain.example.com/qm/signup">
+      <div class="ic">📝</div>
+      <div>
+        <div class="t">活动报名</div>
+        <div class="d">即刻参与质量月各项活动报名（培训 / 竞赛 / 大比武）</div>
+      </div>
+      <div class="arrow">›</div>
+    </a>
+
+    <a class="card" href="https://your-domain.example.com/qm/sop">
+      <div class="ic">💡</div>
+      <div>
+        <div class="t">提交 SOP 优化建议</div>
+        <div class="d">随手拍 / 现场改善机会一键提交，推动体系优化</div>
+      </div>
+      <div class="arrow">›</div>
+    </a>
+
+    <a class="card" href="https://your-domain.example.com/qm/feedback">
+      <div class="ic">💬</div>
+      <div>
+        <div class="t">活动反馈</div>
+        <div class="d">说说你的体验、问题与建议，帮助我们做得更好</div>
+      </div>
+      <div class="arrow">›</div>
+    </a>
+
+    <div class="note">
+      本入口由集团质量部提供 · 2026 年 9 月<br/>
+      如遇链接异常，请联系各子公司质量负责人
+    </div>
+  </div>
+</body>
+</html>
