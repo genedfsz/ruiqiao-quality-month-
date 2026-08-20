@@ -130,10 +130,11 @@
 
     function showMain(co){
       currentCo = co;
-      document.getElementById('mainTitle').textContent = '质量月活动 · ' + co.name;
+      document.getElementById('mainTitle').text  = '质量月活动 · ' + co.name;
       picker.classList.add('hidden');
       main.classList.remove('hidden');
       if(coParam !== co.code){ history.replaceState(null,'','?co='+co.code); }
+      renderActivities(); // 切换公司时同步刷新活动（含按公司排除大比武）
     }
     function showPicker(){
       main.classList.add('hidden');
@@ -149,7 +150,7 @@
     });
     document.getElementById('switchCo').onclick=(e)=>{e.preventDefault();showPicker();};
 
-    if(currentCo){ showMain(currentCo); }
+    // 初始渲染移至 renderActivities 定义之后执行（见下方）
 
     // —— 方案 C：钉钉内自动识别（开关开启且钉钉环境可用时）——
     async function tryDingTalkAuth(){
@@ -177,14 +178,27 @@
       t.textContent=msg; t.classList.add('show');
       setTimeout(()=>t.classList.remove('show'),2600);
     }
-    // 渲染活动卡片（数据驱动，增删活动只改 ACTIVITIES 数组）
+    // 部分公司不开展「大比武」（可选活动），按公司排除
+    const NO_DABIYU = ['01','02','03','04','05']; // 雷盛/普利瑞/巴迪脉通/利福昇/普微森
+
+    // 渲染活动卡片（数据驱动；支持按公司排除活动，增删活动只改 ACTIVITIES）
     const actList = document.getElementById('actList');
-    ACTIVITIES.forEach(a=>{
-      const d=document.createElement('div');
-      d.className='card'; d.setAttribute('data-form', a.key);
-      d.innerHTML = '<div class="ic">'+a.icon+'</div><div><div class="t">'+a.title+' <span class="badge">钉钉</span></div><div class="d">'+a.desc+'</div></div><div class="arrow">›</div>';
-      actList.appendChild(d);
-    });
+    function renderActivities(){
+      actList.innerHTML='';
+      ACTIVITIES.forEach(a=>{
+        let desc = a.desc;
+        // 报名描述中「大比武」仅对未排除的公司显示
+        if(a.key==='signup' && currentCo && NO_DABIYU.includes(currentCo.code)){
+          desc = '即刻参与质量月各项活动报名（培训 / 竞赛）';
+        }
+        const d=document.createElement('div');
+        d.className='card'; d.setAttribute('data-form', a.key);
+        d.innerHTML = '<div class="ic">'+a.icon+'</div><div><div class="t">'+a.title+' <span class="badge">钉钉</span></div><div class="d">'+desc+'</div></div><div class="arrow">›</div>';
+        actList.appendChild(d);
+      });
+    }
+    renderActivities();
+    if(currentCo){ showMain(currentCo); }
     actList.addEventListener('click',(e)=>{
       const card=e.target.closest('.card'); if(!card) return;
       const key=card.getAttribute('data-form');
