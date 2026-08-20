@@ -82,7 +82,7 @@
         };
         // ② 活动列表（顺序=展示顺序；新增活动只需在此加一项，key 须与上面一致）
         const ACTIVITIES = [
-          {key:'signup',   icon:'📝', title:'活动报名',          desc:'即刻参与质量月各项活动报名（培训 / 竞赛 / 大比武）'},
+          {key:'signup',   icon:'📝', title:'活动报名',          desc:'即刻参与质量月各项活动报名（培训 / 竞赛）'},
           {key:'sop',      icon:'💡', title:'提交 SOP 优化建议',  desc:'随手拍 / 现场改善机会一键提交，推动体系优化'},
           {key:'feedback', icon:'💬', title:'活动反馈',          desc:'说说你的体验、问题与建议，帮助我们做得更好'}
           // {key:'exam', icon:'📊', title:'培训考核', desc:'手机扫码答题，系统自动判分'},
@@ -134,7 +134,7 @@
       picker.classList.add('hidden');
       main.classList.remove('hidden');
       if(coParam !== co.code){ history.replaceState(null,'','?co='+co.code); }
-      renderActivities(); // 切换公司时同步刷新活动（含按公司排除大比武）
+      renderActivities(); // 切换公司时同步刷新活动
     }
     function showPicker(){
       main.classList.add('hidden');
@@ -178,19 +178,14 @@
       t.textContent=msg; t.classList.add('show');
       setTimeout(()=>t.classList.remove('show'),2600);
     }
-    // 部分公司不开展「大比武」（可选活动），按公司排除
-    const NO_DABIYU = ['01','02','03','04','05']; // 雷盛/普利瑞/巴迪脉通/利福昇/普微森
+    // 「大比武」已于钉钉端下架，全员统一报名入口为（培训 / 竞赛），不再按公司区分
 
     // 渲染活动卡片（数据驱动；支持按公司排除活动，增删活动只改 ACTIVITIES）
     const actList = document.getElementById('actList');
     function renderActivities(){
       actList.innerHTML='';
       ACTIVITIES.forEach(a=>{
-        let desc = a.desc;
-        // 报名描述中「大比武」仅对未排除的公司显示
-        if(a.key==='signup' && currentCo && NO_DABIYU.includes(currentCo.code)){
-          desc = '即刻参与质量月各项活动报名（培训 / 竞赛）';
-        }
+        const desc = a.desc;
         const d=document.createElement('div');
         d.className='card'; d.setAttribute('data-form', a.key);
         d.innerHTML = '<div class="ic">'+a.icon+'</div><div><div class="t">'+a.title+' <span class="badge">钉钉</span></div><div class="d">'+desc+'</div></div><div class="arrow">›</div>';
