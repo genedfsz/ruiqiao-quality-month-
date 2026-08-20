@@ -4,9 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>瑞桥鼎科 2026 质量月 · 活动统一入口</title>
+<script src="https://g.alicdn.com/dingding/open-develop/1.9.0/dingtalk.js"></script>
 <style>
   :root{
-    --brand:#c8102e;      /* 质在执行 主色 */
+    --brand:#c8102e;
     --brand-dark:#9c0c23;
     --ink:#1f2329;
     --muted:#6b7280;
@@ -14,89 +15,184 @@
     --card:#ffffff;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  body{
-    margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
-    background:linear-gradient(180deg,#fff 0%,var(--bg) 100%);
-    color:var(--ink);min-height:100vh;
-  }
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(180deg,#fff 0%,var(--bg) 100%);color:var(--ink);min-height:100vh;}
   .wrap{max-width:520px;margin:0 auto;padding:24px 18px 40px;}
-  .hero{
-    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
-    color:#fff;border-radius:18px;padding:26px 22px;box-shadow:0 8px 24px rgba(200,16,46,.25);
-  }
+  .hero{background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;border-radius:18px;padding:26px 22px;box-shadow:0 8px 24px rgba(200,16,46,.25);}
   .hero .tag{font-size:13px;opacity:.9;letter-spacing:2px;}
   .hero h1{margin:8px 0 6px;font-size:23px;line-height:1.35;font-weight:800;}
   .hero p{margin:0;font-size:14px;opacity:.92;}
+  .switch{margin-top:10px;font-size:12px;opacity:.9;}
+  .switch a{color:#fff;text-decoration:underline;}
   .sub{margin:18px 4px 12px;font-size:14px;color:var(--muted);}
-  .card{
-    display:flex;align-items:center;gap:14px;background:var(--card);
-    border:1px solid #eceef1;border-radius:16px;padding:18px 16px;margin-bottom:14px;
-    text-decoration:none;color:var(--ink);box-shadow:0 2px 10px rgba(0,0,0,.04);
-    transition:transform .12s ease,box-shadow .12s ease;
-  }
+  .card{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid #eceef1;border-radius:16px;padding:18px 16px;margin-bottom:14px;text-decoration:none;color:var(--ink);box-shadow:0 2px 10px rgba(0,0,0,.04);transition:transform .12s ease,box-shadow .12s ease;cursor:pointer;}
   .card:active{transform:scale(.98);box-shadow:0 4px 16px rgba(0,0,0,.10);}
-  .ic{
-    flex:0 0 52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
-    font-size:26px;background:#fdeef0;
-  }
-  .card .t{font-size:16px;font-weight:700;margin-bottom:3px;}
+  .ic{flex:0 0 52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;background:#fdeef0;}
+  .card .t{font-size:16px;font-weight:700;margin-bottom:3px;display:flex;align-items:center;gap:8px;}
   .card .d{font-size:13px;color:var(--muted);line-height:1.45;}
   .card .arrow{margin-left:auto;color:#cbd0d6;font-size:20px;}
-  .note{
-    margin-top:22px;font-size:12px;color:#9aa1a9;text-align:center;line-height:1.7;
-  }
+  .badge{font-size:11px;font-weight:700;color:#fff;background:#1677ff;border-radius:6px;padding:2px 7px;letter-spacing:1px;}
+  .note{margin-top:22px;font-size:12px;color:#9aa1a9;text-align:center;line-height:1.7;}
   .note b{color:var(--brand);}
+  .toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(20px);background:rgba(31,35,41,.92);color:#fff;font-size:13px;padding:11px 18px;border-radius:10px;opacity:0;pointer-events:none;transition:all .25s ease;max-width:80%;text-align:center;z-index:99;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .picker-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;}
+  .co-btn{background:var(--card);border:1px solid #eceef1;border-radius:14px;padding:16px 12px;text-align:center;font-size:15px;font-weight:700;color:var(--ink);box-shadow:0 2px 10px rgba(0,0,0,.04);cursor:pointer;}
+  .co-btn:active{transform:scale(.98);}
+  .co-btn small{display:block;font-size:11px;color:var(--muted);font-weight:400;margin-top:4px;line-height:1.3;}
+  .hidden{display:none !important;}
 </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="hero">
-      <div class="tag">RUIQIAO DINGKE · 2026</div>
-      <h1>质量月活动统一入口</h1>
-      <p>知行合一，质在执行 —— 扫码即办，一步到位</p>
+
+    <!-- ============ 公司选择页（无 co 参数 / 非钉钉 时显示） ============ -->
+    <div id="picker">
+      <div class="hero">
+        <div class="tag">RUIQIAO DINGKE · 2026</div>
+        <h1>质量月活动统一入口</h1>
+        <p>知行合一，质在执行 —— 请先选择您所在的公司</p>
+      </div>
+      <div class="sub">点击下方您的公司，进入专属活动界面：</div>
+      <div class="picker-grid" id="coGrid"><!-- JS 注入 --></div>
+      <div class="note">
+        本入口由集团质量部提供 · 2026 年 9 月<br/>
+        如已收到本公司专属二维码，请直接扫专属码直达
+      </div>
     </div>
 
-    <div class="sub">请选择你要参与的事项：</div>
-
-    <!--
-      ===== 三个入口链接配置区 =====
-      把下面的 href 替换成你们实际使用的表单链接即可：
-        · 报名表单：腾讯问卷 / 问卷网 / 企业微信 收集的"活动报名"链接
-        · SOP建议：第6-7页《全员诊查与精益改善提报与闭环跟踪表》的提交链接
-        · 反馈表单：腾讯问卷 / 问卷网 的"活动反馈"链接
-      只需改 href，页面其余部分无需变动。
-    -->
-    <a class="card" href="https://your-domain.example.com/qm/signup">
-      <div class="ic">📝</div>
-      <div>
-        <div class="t">活动报名</div>
-        <div class="d">即刻参与质量月各项活动报名（培训 / 竞赛 / 大比武）</div>
+    <!-- ============ 公司专属活动页 ============ -->
+    <div id="main" class="hidden">
+      <div class="hero">
+        <div class="tag">RUIQIAO DINGKE · 2026</div>
+        <h1 id="mainTitle">质量月活动</h1>
+        <p>知行合一，质在执行 —— 扫码即办，一步到位</p>
+        <div class="switch"><a href="#" id="switchCo">切换公司 ›</a></div>
       </div>
-      <div class="arrow">›</div>
-    </a>
 
-    <a class="card" href="https://your-domain.example.com/qm/sop">
-      <div class="ic">💡</div>
-      <div>
-        <div class="t">提交 SOP 优化建议</div>
-        <div class="d">随手拍 / 现场改善机会一键提交，推动体系优化</div>
+      <div class="sub">请选择你要参与的事项（跳转钉钉填写）：</div>
+
+      <!-- ===== 活动列表 + 表单链接配置区（仅需改这里） ===== -->
+      <script>
+        // ① 各活动的钉钉表单链接（新增活动在此加一行：key: "链接"）
+        const DINGTALK_FORMS = {
+          signup:   "https://alidocs.dingtalk.com/notable/share/form/v01r4mlQ51z4GaZXlxo_dv19yqvsgs3oebp3pcjys_1qX0QQ0?source=link",   // 活动报名
+          sop:      "https://alidocs.dingtalk.com/i/nodes/QPGYqjpJYr9aa6KPCK1X0DKM8akx1Z5N?utm_scene=person_space",   // SOP 优化建议
+          feedback: "https://alidocs.dingtalk.com/i/nodes/DnRL6jAJMG299zraH9lpv441WyMoPYe1?utm_scene=person_space"  // 活动反馈
+          // exam:   "https://...",   // 例：新增"培训考核"活动
+        };
+        // ② 活动列表（顺序=展示顺序；新增活动只需在此加一项，key 须与上面一致）
+        const ACTIVITIES = [
+          {key:'signup',   icon:'📝', title:'活动报名',          desc:'即刻参与质量月各项活动报名（培训 / 竞赛 / 大比武）'},
+          {key:'sop',      icon:'💡', title:'提交 SOP 优化建议',  desc:'随手拍 / 现场改善机会一键提交，推动体系优化'},
+          {key:'feedback', icon:'💬', title:'活动反馈',          desc:'说说你的体验、问题与建议，帮助我们做得更好'}
+          // {key:'exam', icon:'📊', title:'培训考核', desc:'手机扫码答题，系统自动判分'},
+        ];
+      </script>
+
+      <div id="actList"><!-- 活动卡片由 JS 按 ACTIVITIES 注入 --></div>
+
+      <div class="note">
+        本入口由集团质量部提供 · 2026 年 9 月<br/>
+        数据通过钉钉后台统一归集 · 如遇链接异常，请联系各子公司质量负责人
       </div>
-      <div class="arrow">›</div>
-    </a>
-
-    <a class="card" href="https://your-domain.example.com/qm/feedback">
-      <div class="ic">💬</div>
-      <div>
-        <div class="t">活动反馈</div>
-        <div class="d">说说你的体验、问题与建议，帮助我们做得更好</div>
-      </div>
-      <div class="arrow">›</div>
-    </a>
-
-    <div class="note">
-      本入口由集团质量部提供 · 2026 年 9 月<br/>
-      如遇链接异常，请联系各子公司质量负责人
     </div>
   </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ⬇⬇⬇ 8 家子公司配置（已填真实名称；如需调整仅改这里） ⬇⬇⬇
+    const COMPANIES = [
+      {code:'01', name:'雷盛',     full:'昆山雷盛医疗科技有限公司'},
+      {code:'02', name:'普利瑞',   full:'普利瑞医疗科技(苏州)有限公司'},
+      {code:'03', name:'巴迪脉通', full:'巴迪脉通医疗科技（苏州）有限公司'},
+      {code:'04', name:'利福昇',   full:'利福昇（苏州）医疗科技有限公司'},
+      {code:'05', name:'普微森',   full:'南京普微森医疗科技有限公司'},
+      {code:'06', name:'谱高',     full:'谱高医疗科技（南京）有限公司'},
+      {code:'07', name:'纽诺',     full:'南京纽诺英特医疗科技有限公司'},
+      {code:'08', name:'瑞桥北京', full:'瑞桥鼎科（北京）医疗科技股份有限公司'}
+    ];
+    // ⬆⬆⬆ 8 家子公司配置 ⬆⬆⬆
+
+    // ===== 方案 C 预埋开关（待钉钉管理员创建微应用 + 授权通讯录后启用） =====
+    const ENABLE_DINGTALK_AUTH = false;     // ← 改为 true 即激活自动识别
+    const DINGTALK_CORP_ID     = "";        // ← 填微应用 corpId
+    const WHOAMI_API           = "/api/whoami"; // 后端身份解析接口（待部署）
+    // =========================================================================
+
+    const params = new URLSearchParams(location.search);
+    const coParam = (params.get('co')||'').trim();
+    let currentCo = COMPANIES.find(c=>c.code===coParam) || null;
+
+    const picker = document.getElementById('picker');
+    const main   = document.getElementById('main');
+    const coGrid = document.getElementById('coGrid');
+
+    function showMain(co){
+      currentCo = co;
+      document.getElementById('mainTitle').textContent = '质量月活动 · ' + co.name;
+      picker.classList.add('hidden');
+      main.classList.remove('hidden');
+      if(coParam !== co.code){ history.replaceState(null,'','?co='+co.code); }
+    }
+    function showPicker(){
+      main.classList.add('hidden');
+      picker.classList.remove('hidden');
+    }
+
+    COMPANIES.forEach(c=>{
+      const b=document.createElement('div');
+      b.className='co-btn';
+      b.innerHTML = c.name + '<small>'+c.full+'</small>';
+      b.onclick=()=>showMain(c);
+      coGrid.appendChild(b);
+    });
+    document.getElementById('switchCo').onclick=(e)=>{e.preventDefault();showPicker();};
+
+    if(currentCo){ showMain(currentCo); }
+
+    // —— 方案 C：钉钉内自动识别（开关开启且钉钉环境可用时）——
+    async function tryDingTalkAuth(){
+      if(!ENABLE_DINGTALK_AUTH) return false;
+      if(typeof dd==='undefined' || !dd.runtime || !dd.runtime.permission) return false;
+      if(!DINGTALK_CORP_ID) return false;
+      try{
+        const authCode = await new Promise((res,rej)=>{
+          dd.runtime.permission.requestAuthCode({corpId:DINGTALK_CORP_ID, onSuccess:(r)=>res(r.code), onFail:(e)=>rej(e)});
+        });
+        const r = await fetch(WHOAMI_API+'?code='+encodeURIComponent(authCode));
+        const data = await r.json();
+        if(data && data.co){
+          const co = COMPANIES.find(c=>c.code===data.co);
+          if(co){ showMain(co); return true; }
+        }
+        return false; // 识别失败 → 回落选公司页
+      }catch(e){ return false; }
+    }
+    if(!currentCo){ tryDingTalkAuth().then(ok=>{ if(!ok) showPicker(); }); }
+    else { /* 已有 co，直接进 main，无需识别 */ }
+
+    function showToast(msg){
+      const t=document.getElementById('toast');
+      t.textContent=msg; t.classList.add('show');
+      setTimeout(()=>t.classList.remove('show'),2600);
+    }
+    // 渲染活动卡片（数据驱动，增删活动只改 ACTIVITIES 数组）
+    const actList = document.getElementById('actList');
+    ACTIVITIES.forEach(a=>{
+      const d=document.createElement('div');
+      d.className='card'; d.setAttribute('data-form', a.key);
+      d.innerHTML = '<div class="ic">'+a.icon+'</div><div><div class="t">'+a.title+' <span class="badge">钉钉</span></div><div class="d">'+a.desc+'</div></div><div class="arrow">›</div>';
+      actList.appendChild(d);
+    });
+    actList.addEventListener('click',(e)=>{
+      const card=e.target.closest('.card'); if(!card) return;
+      const key=card.getAttribute('data-form');
+      let url=(DINGTALK_FORMS[key]||'').trim();
+      if(!url || url.indexOf('example.com')>-1){ showToast('该表单链接待配置，请联系集团质量部'); return; }
+      if(currentCo){ url += (url.indexOf('?')>-1?'&':'?') + 'co=' + currentCo.code; }
+      window.location.href=url;
+    });
+  </script>
 </body>
 </html>
